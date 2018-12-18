@@ -1,8 +1,15 @@
 package com.yongqi.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.yongqi.model.Movie;
+import com.yongqi.service.MovieService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -14,10 +21,14 @@ import io.swagger.annotations.ApiOperation;
 @Controller
 @RequestMapping("/movie")
 public class MovieController {
+	@Autowired
+	MovieService movieService;
 	
 	@GetMapping("")
 	@ApiOperation(value="返回movie页面",notes="")
-	public String movie() {
+	public String movie(Model model) {
+		List<Movie> movieList = movieService.getAllMovieTitle();
+		model.addAllAttributes(movieList);
 		return "movie";
 	}
 	
@@ -26,4 +37,5 @@ public class MovieController {
 	public String movieIframe() {
 		return "movieiframe";
 	}
+	
 }
