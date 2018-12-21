@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yongqi.mapper.PhotoMapper">
+	
+	<select id="query_roll" resultType = "Photo">
+		SELECT * FROM photo_info WHERE photo_type = "roll" limit 8
+	</select>
+	
+	<select id="query_album_cover" resultType = "String">
+		SELECT photo_url FROM photo_info WHERE album_id = #{album_id} order by photo_date LIMIT 1
+	</select>
+	
+	<select id="query_photo_detail" resultType = "Photo">
+		SELECT * FROM photo_info WHERE album_id = #{album_id}
+	</select>
+	
+	<select id="query_album" resultType = "PhotoAlbum">
+		SELECT * FROM photo_album order by album_date
+	</select>
+</mapper>

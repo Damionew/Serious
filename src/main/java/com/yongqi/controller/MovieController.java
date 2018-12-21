@@ -17,7 +17,7 @@ import com.yongqi.service.MovieService;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * 电影列表
+ * 新片影评
  * @author yinyunqi
  * 2018年12月3日14:47:39
  */
@@ -31,19 +31,21 @@ public class MovieController {
 	@ApiOperation(value="返回movie页面",notes="")
 	public String movie(Model model) {
 		List<Movie> movieList = movieService.getAllMovieTitle();
+		// 默认第一个movie
+		String defaultMoviename = movieList.get(0).getMoviename();
 		model.addAttribute(movieList);
-		return "movie";
+		model.addAttribute("defaultMoviename",defaultMoviename);
+		return "movie/movie";
 	}
 	
 	@GetMapping("/movieIframe")
 	@ApiOperation(value="返回嵌入在movie中的iframe页面",notes="")
 	public String movieIframe(Model model,@RequestParam("moviename") String moviename) {
-		System.out.println(moviename);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("moviename", moviename);
 		Movie movie = movieService.getMovieInfo(map);
 		model.addAttribute(movie);
-		return "movieinfo";
+		return "movie/movieinfo";
 	}
 	
 }

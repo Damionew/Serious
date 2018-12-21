@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="renderer" content="webkit">
+	<title>电影子页</title>
+	<link type="text/css" th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" />
+	<link type="text/css" th:href="@{/css/scrollbar.css}" rel="stylesheet" />
+	<script type="text/javascript" th:src="@{/js/jquery/jquery-3.3.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+	<style type="text/css">
+		.line-limit-length {
+			width:300px;
+			overflow: hidden;
+ 			text-overflow: ellipsis;
+			white-space: nowrap; //文本不换行，这样超出一行的部分被截取，显示...
+		}
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+	<div class="page-header">
+		<h2 th:text="${movie.moviename}"></h2>		
+	</div>
+	<p></p>
+	<div class="row">
+		<div class="col-md-3" style="float: left">
+			<img style="width:158px" th:src="${movie.image}" />
+		</div>
+		<div class="col-md-9"  style="float: left">
+			<p><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>导演：</b></span><span th:text="${movie.director}"></span></p>
+			<p class="line-limit-length"><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>编剧：</b></span><span  th:text="${movie.scenario}"></span></p>
+			<p class="line-limit-length"><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>主演：</b></span><span  th:text="${movie.staring}"></span></p>
+			<p><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>类型：</b></span><span th:text="${movie.movietype}"></span></p>
+			<p><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>上映时间：</b></span><span th:text="${movie.releasedate}"></span></p>
+			<p><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>片长：</b></span><span th:text="${movie.runtime}"></span></p>
+			<p><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>评分人数：</b></span><span th:text="${movie.commentsamount}"></span></p>
+			<p><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>评分：</b></span><span th:text="${movie.score}"></span></p>
+			
+		</div>
+		<div class="col-md-12" style="float: left">
+			<p><span style="font:15px/1.9 Arial, Helvetica, sans-serif;"><b>简介：</b></span><span th:text="${movie.intro}"></span></p>
+		</div>
+	</div>
+	<div class="row-fluid">
+				<div class="span12">
+				<h4 style="color:#669;">网友评论：</h4>
+					<ul class="nav nav-list" >
+						<li  th:each="comment: ${movie.movieComments}">
+							<p><span style="color:#7A378B" th:text="${comment.avater}"></span>：<span style="font-family:Microsoft YaHei" th:text="${comment.comment}"></span></p>
+						</li>
+					</ul>
+				</div>
+			</div>
+</div>
+</body>
+</html>
