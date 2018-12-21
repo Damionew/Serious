@@ -1,6 +1,7 @@
 package com.yongqi.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,16 @@ public class MovieService {
 	 */
 	public List<Movie> getAllMovieTitle() {
 		return movieMapper.queryAllMovieTitle();
+	}
+	
+	/**
+	 * 查询电影信息
+	 * @return
+	 */
+	public Movie getMovieInfo(Map<String, String> map) {
+		Movie movieInfo = movieMapper.queryMovieInfo(map);
+		movieInfo.setMovieComments(movieMapper.queryMovieComment(map));
+		return movieInfo;
 	}
 	
 }

@@ -20,7 +20,7 @@ public interface MovieMapper {
 	public List<Movie> queryAllMovieTitle();
 	
 	// 查询电影详细信息
-	public List<Movie> queryMovieInfo(Map<String, String> map);
+	public Movie queryMovieInfo(Map<String, String> map);
 	
 	// 查询电影影评
 	public List<MovieComment> queryMovieComment(Map<String, String> map);

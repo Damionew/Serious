@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.damionew.mapper.LoginHistoryMapper">
-	<insert id="insertLoginHistory">
-		insert into gm_login_history (username,date,ip,lat,lng)
-		values (#{username},#{date},#{ip},#{lat},#{lng})
-	</insert>
+<mapper namespace="com.yongqi.mapper.MovieMapper">
+	<select id="queryAllMovieTitle" resultType = "Movie">
+		select moviename from movie_info group by moviename
+	</select>
 	
-	<select id="selectCountVistors" resultType = "String">
-		select count(*) from gm_login_history
+	<select id="queryMovieInfo" resultType = "Movie">
+		select * from movie_info where moviename = #{moviename}
+	</select>
+	
+	<select id="queryMovieComment" resultType = "MovieComment">
+		select * from movie_comment where moviename = #{moviename}
 	</select>
 </mapper>

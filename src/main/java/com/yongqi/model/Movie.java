@@ -11,7 +11,7 @@ public class Movie {
 	String moviename;
 	String image;
 	String score;
-	String commentsamout;
+	String commentsamount;
 	String director;
 	String scenario;
 	String staring;
@@ -39,11 +39,12 @@ public class Movie {
 	public void setScore(String score) {
 		this.score = score;
 	}
-	public String getCommentsamout() {
-		return commentsamout;
+	
+	public String getCommentsamount() {
+		return commentsamount;
 	}
-	public void setCommentsamout(String commentsamout) {
-		this.commentsamout = commentsamout;
+	public void setCommentsamount(String commentsamount) {
+		this.commentsamount = commentsamount;
 	}
 	public String getDirector() {
 		return director;
