@@ -35,7 +35,7 @@ public class MovieController {
 		String defaultMoviename = movieList.get(0).getMoviename();
 		model.addAttribute(movieList);
 		model.addAttribute("defaultMoviename",defaultMoviename);
-		return "movie/movie";
+		return "movie/movieIndex";
 	}
 	
 	@GetMapping("/movieIframe")
@@ -45,7 +45,7 @@ public class MovieController {
 		map.put("moviename", moviename);
 		Movie movie = movieService.getMovieInfo(map);
 		model.addAttribute(movie);
-		return "movie/movieinfo";
+		return "movie/movieInfo";
 	}
 	
 }

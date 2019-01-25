@@ -31,7 +31,7 @@ public class PhotoController {
 		
 		model.addAttribute("roll", photoService.query_roll());
 		model.addAttribute("album",photoService.queryAlbum());
-		return "photo/photo";
+		return "photo/photoIndex";
 	}
 	
 	@RequestMapping("/detail")
@@ -39,6 +39,6 @@ public class PhotoController {
 	public String photoDetail(String album_id,Model model) {
 		List<Photo> photoList = photoService.query_photo_detail(album_id);
 		model.addAttribute("photoList", photoList);
-		return "photo/photoinfo";
+		return "photo/photoInfo";
 	}
 }
