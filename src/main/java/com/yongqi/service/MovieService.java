@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,8 +49,10 @@ public class MovieService {
 	public void jsoupDoubanNewMovie() throws IOException {
 		String url = "https://movie.douban.com/chart";
 		Document doc = JsoupUtil.getDocContentByUrl(url);
-		String title = doc.title();
-		Elements tr = doc.select("tr[class=item]");
-		System.out.println(title);
+		
+		Elements trEles = doc.select("tr[class=item]");
+		for(Element trEle : trEles) {
+			String title = trEle.select("a[title]").attr("title");
+		}
 	}
 }
