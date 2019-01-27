@@ -5,7 +5,13 @@ import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.yongqi.util.JsoupUtil;
 
 /**
  * 新闻处理类
@@ -15,17 +21,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class NewsService {
-	
+	@Autowired
+	JsoupUtil jsoupUtil;
 	/**
 	 * 使用JSoup解析网页信息
 	 * @throws IOException 
 	 */
 	public void jsoupAna() throws IOException {
-		Document doc = Jsoup.connect("https://news.163.com/")
-				// 模拟谷歌
-				.userAgent("Mozilla/4.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)")
-				.get();
-		Elements elements = doc.select("div#newsdata_list noloading").first().getElementsByClass("ndi_main");
-		System.out.println(elements);
+		String url = "https://movie.douban.com/chart";
+		Document doc = jsoupUtil.getDocContentByUrl(url);
+//		Elements elements = doc.select("div#newsdata_list noloading").first().getElementsByClass("ndi_main");
+		System.out.println(doc);
 	}
 }

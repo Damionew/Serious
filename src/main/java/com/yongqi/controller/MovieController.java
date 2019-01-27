@@ -1,5 +1,6 @@
 package com.yongqi.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yongqi.model.Movie;
 import com.yongqi.service.MovieService;
@@ -48,4 +50,10 @@ public class MovieController {
 		return "movie/movieInfo";
 	}
 	
+	@ResponseBody
+	@GetMapping("/jsoupDoubanNewMovie")
+	@ApiOperation(value="返回嵌入在movie中的iframe页面",notes="")
+	public void jsoupDoubanNewMovie() throws IOException {
+		movieService.jsoupDoubanNewMovie();
+	}
 }
