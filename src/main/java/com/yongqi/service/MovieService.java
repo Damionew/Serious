@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.yongqi.mapper.MovieMapper;
 import com.yongqi.model.Movie;
+import com.yongqi.model.MovieComment;
 import com.yongqi.util.JsoupUtil;
 import com.yongqi.util.UUIDUtil;
 
@@ -81,11 +82,20 @@ public class MovieService {
 	 * @throws IOException 
 	 */
 	private void getMovieReviews(Map<String, String> map) throws IOException {
-		String reviewUrl = map.get("movieUrl")+"reviews"; 
+		String reviewUrl = map.get("movieUrl")+"comments?status=P"; 
+		String moviename = map.get("moviename");
 		Document doc = JsoupUtil.getDocContentByUrl(reviewUrl);
-		Elements reviewEles = doc.select("div[class=main review-item]");
+		Elements reviewEles = doc.select("div[class=comment]");
 		for (Element element : reviewEles) {
-			String avater = element.select("div[class=name").text();
+			MovieComment movieComment = new MovieComment();
+			Elements infoEles = element.select("span[class=comment-info]");
+			String avater = infoEles.get(0).getElementsByTag("a").text();
+			String date = infoEles.select("span[class=comment-time]").text();
+			String comment = element.select("span[class=short]").text();
+			movieComment.setAvater(avater);
+			movieComment.setMoviename(moviename);
+			movieComment.setDate(date);
+			movieComment.setComment(comment);
 		}
 		
 	}
