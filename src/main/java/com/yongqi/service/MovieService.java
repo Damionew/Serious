@@ -1,7 +1,6 @@
 package com.yongqi.service;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +9,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yongqi.mapper.MovieMapper;
 import com.yongqi.model.Movie;
@@ -49,13 +49,14 @@ public class MovieService {
 	 * 爬取豆瓣电影排行榜
 	 * @throws IOException 
 	 */
+	@Transactional
 	public void jsoupDoubanNewMovie() throws IOException {
 		String url = "https://movie.douban.com/chart";
 		Document doc = JsoupUtil.getDocContentByUrl(url);
 		// 获取包含电影信息的tr
 		Elements trEles = doc.select("tr[class=item]");
 		for(Element trEle : trEles) {
-			Map<String, String> map = new HashMap<String, String>();
+			Movie movie = new Movie();
 			// 电影图片
 			String imgUrl = trEle.getElementsByTag("img").attr("src");
 			// 获取存放电影信息的div pl2
@@ -64,16 +65,18 @@ public class MovieService {
 			String movieUrl = pl2.get(0).getElementsByTag("a").attr("href");
 			Elements star = pl2.get(0).getElementsByClass("star clearfix");
 			// 评分
-			String rate =star.get(0).getElementsByClass("rating_nums").text();
+			String score =star.get(0).getElementsByClass("rating_nums").text();
 			// 评价数
-			String rateNum = star.get(0).getElementsByClass("pl").text();
-			map.put("id", UUIDUtil.getUUID());
-			map.put("imgUrl", imgUrl);
-			map.put("movieUrl", movieUrl);
-			map.put("rate", rate);
-			map.put("rateNum", rateNum);
-			getMovieDetail(map);
-			getMovieReviews(map);
+			String commentsamount = star.get(0).getElementsByClass("pl").text();
+			movie.setId(UUIDUtil.getUUID());
+			movie.setImage(imgUrl);
+			movie.setMovieUrl(movieUrl);
+			movie.setScore(score);
+			movie.setCommentsAmount(commentsamount);
+			getMovieDetail(movie);
+			// 存储
+			movieMapper.saveMovieInfo(movie);
+			getMovieReviews(movie);
 		}
 	}
 	/**
@@ -81,9 +84,9 @@ public class MovieService {
 	 * @param map
 	 * @throws IOException 
 	 */
-	private void getMovieReviews(Map<String, String> map) throws IOException {
-		String reviewUrl = map.get("movieUrl")+"comments?status=P"; 
-		String moviename = map.get("moviename");
+	private void getMovieReviews(Movie movie) throws IOException {
+		String reviewUrl = movie.getMovieUrl()+"comments?status=P"; 
+		String moviename = movie.getMovieName();
 		Document doc = JsoupUtil.getDocContentByUrl(reviewUrl);
 		Elements reviewEles = doc.select("div[class=comment]");
 		for (Element element : reviewEles) {
@@ -92,10 +95,12 @@ public class MovieService {
 			String avater = infoEles.get(0).getElementsByTag("a").text();
 			String date = infoEles.select("span[class=comment-time]").text();
 			String comment = element.select("span[class=short]").text();
+			movieComment.setId(UUIDUtil.getUUID());
 			movieComment.setAvater(avater);
-			movieComment.setMoviename(moviename);
+			movieComment.setMovieName(moviename);
 			movieComment.setDate(date);
 			movieComment.setComment(comment);
+			movieMapper.saveMovieReviews(movieComment);
 		}
 		
 	}
@@ -105,12 +110,12 @@ public class MovieService {
 	 * @param map
 	 * @throws IOException
 	 */
-	private void getMovieDetail(Map<String, String> map) throws IOException {
-		String movieUrl = map.get("movieUrl");
+	private void getMovieDetail(Movie movie) throws IOException {
+		String movieUrl = movie.getMovieUrl();
 		Document doc = JsoupUtil.getDocContentByUrl(movieUrl);
 		Element contentEle = doc.getElementById("content");
 		// 影片名称
-		String moviename = contentEle.getElementsByTag("h1").text();
+		String movieName = contentEle.getElementsByTag("h1").text();
 		Element infoEle = contentEle.getElementById("info");
 		Elements attrsEles = infoEle.select("span[class=attrs]");
 		// 导演
@@ -120,20 +125,28 @@ public class MovieService {
 		// 主演
 		String staring = attrsEles.get(2).text();
 		// 类型
-		String movietype = infoEle.select("span[property=v:genre]").text();
+		String movieType = infoEle.select("span[property=v:genre]").text();
 		// 上映时间
-		String releasedate = infoEle.select("span[property=v:initialReleaseDate]").text();
+		String releaseDate = infoEle.select("span[property=v:initialReleaseDate]").text();
 		// 片长
 		String runtime = infoEle.select("span[property=v:runtime]").text();
 		// 剧情简介
 		String intro = contentEle.select("span[property=v:summary]").text();
-		map.put("moviename",moviename );
-		map.put("director",director );
-		map.put("scenario",scenario );
-		map.put("staring",staring );
-		map.put("movietype",movietype );
-		map.put("releasedate",releasedate );
-		map.put("runtime",runtime );
-		map.put("intro",intro );
+		movie.setMovieName(movieName);
+		movie.setDirector(director);
+		movie.setScenario(scenario);
+		movie.setStaring(staring);
+		movie.setMovieType(movieType);
+		movie.setReleaseDate(releaseDate);
+		movie.setRuntime(runtime);
+		movie.setIntro(intro);
+	}
+	
+	/**
+	 * 清空表
+	 */
+	public void truncateMovie() {
+		movieMapper.truncateMovieInfo();
+		movieMapper.truncateMovieIComment();
 	}
 }

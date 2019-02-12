@@ -24,4 +24,15 @@ public interface MovieMapper {
 	
 	// 查询电影影评
 	public List<MovieComment> queryMovieComment(Map<String, String> map);
+	
+	// 存储电影信息
+	public void saveMovieInfo(Movie movie);
+	
+	// 存储影评
+	public void saveMovieReviews(MovieComment movieComment);
+	
+	// 清空表
+	public void truncateMovieInfo();
+	
+	public void truncateMovieIComment();
 }

@@ -8,25 +8,34 @@ import java.util.List;
  * 2018年12月18日15:50:15
  */
 public class Movie {
-	String moviename;
+	String id;
+	String movieName;
+	String movieUrl;
 	String image;
 	String score;
-	String commentsamount;
+	String commentsAmount;
 	String director;
 	String scenario;
 	String staring;
-	String movietype;
-	String releasedate;
+	String movieType;
+	String releaseDate;
 	String runtime;
 	String intro;
+	
+	public String getMovieUrl() {
+		return movieUrl;
+	}
+	public void setMovieUrl(String movieUrl) {
+		this.movieUrl = movieUrl;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	// 存放影评
 	List<MovieComment> movieComments;
-	public String getMoviename() {
-		return moviename;
-	}
-	public void setMoviename(String moviename) {
-		this.moviename = moviename;
-	}
 	public String getImage() {
 		return image;
 	}
@@ -40,12 +49,6 @@ public class Movie {
 		this.score = score;
 	}
 	
-	public String getCommentsamount() {
-		return commentsamount;
-	}
-	public void setCommentsamount(String commentsamount) {
-		this.commentsamount = commentsamount;
-	}
 	public String getDirector() {
 		return director;
 	}
@@ -64,18 +67,6 @@ public class Movie {
 	public void setStaring(String staring) {
 		this.staring = staring;
 	}
-	public String getMovietype() {
-		return movietype;
-	}
-	public void setMovietype(String movietype) {
-		this.movietype = movietype;
-	}
-	public String getReleasedate() {
-		return releasedate;
-	}
-	public void setReleasedate(String releasedate) {
-		this.releasedate = releasedate;
-	}
 	public String getRuntime() {
 		return runtime;
 	}
@@ -93,6 +84,30 @@ public class Movie {
 	}
 	public void setMovieComments(List<MovieComment> movieComments) {
 		this.movieComments = movieComments;
+	}
+	public String getMovieName() {
+		return movieName;
+	}
+	public void setMovieName(String movieName) {
+		this.movieName = movieName;
+	}
+	public String getCommentsAmount() {
+		return commentsAmount;
+	}
+	public void setCommentsAmount(String commentsAmount) {
+		this.commentsAmount = commentsAmount;
+	}
+	public String getMovieType() {
+		return movieType;
+	}
+	public void setMovieType(String movieType) {
+		this.movieType = movieType;
+	}
+	public String getReleaseDate() {
+		return releaseDate;
+	}
+	public void setReleaseDate(String releaseDate) {
+		this.releaseDate = releaseDate;
 	}
 	
 }

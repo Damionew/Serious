@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yongqi.mapper.console.MenuMapper">
+	<select id="parentMenu" resultType="com.yongqi.model.console.Menu">
+		SELECT * FROM menu WHERE menuLevel = "1" order by menuId
+	</select>
+	
+	<select id="childMenu" resultType="com.yongqi.model.console.Menu">
+		SELECT * FROM menu WHERE parentId = #{parentId} order by menuId
+	</select>
+	
+	<select id="selectMenuByName" resultType="com.yongqi.model.console.Menu">
+		select * from menu where menuName = #{menuName}
+	</select>
+	
+	<select id="selectParentMenuByName" resultType="com.yongqi.model.console.Menu">
+		select * from menu where menuName = #{parentMenu}
+	</select>
+	
+	<insert id="insertChildMenu">
+		insert into menu (menuName,parentId,url,icon,menuLevel) 
+		values
+		(#{menuName},#{parentId},#{url},#{icon},#{menuLevel})
+	</insert>
+	
+	<select id="deleteChildMenu">
+		delete from menu where menuName = #{menuName}
+	</select>
+	
+	<update id="updateMenuByName">
+		update menu set menuName = #{newMenuName},url = #{menuUrl} where menuName = #{oldMenuName}
+	</update>
+</mapper>

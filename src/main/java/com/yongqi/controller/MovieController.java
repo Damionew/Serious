@@ -34,17 +34,17 @@ public class MovieController {
 	public String movie(Model model) {
 		List<Movie> movieList = movieService.getAllMovieTitle();
 		// 默认第一个movie
-		String defaultMoviename = movieList.get(0).getMoviename();
+		String defaultMoviename = movieList.get(0).getMovieName();
 		model.addAttribute(movieList);
-		model.addAttribute("defaultMoviename",defaultMoviename);
+		model.addAttribute("defaultMovieName",defaultMoviename);
 		return "movie/movieIndex";
 	}
 	
 	@GetMapping("/movieIframe")
 	@ApiOperation(value="返回嵌入在movie中的iframe页面",notes="")
-	public String movieIframe(Model model,@RequestParam("moviename") String moviename) {
+	public String movieIframe(Model model,@RequestParam("movieName") String movieName) {
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("moviename", moviename);
+		map.put("movieName", movieName);
 		Movie movie = movieService.getMovieInfo(map);
 		model.addAttribute(movie);
 		return "movie/movieInfo";

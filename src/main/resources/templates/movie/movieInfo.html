@@ -23,7 +23,7 @@
 <body>
 	<div class="container-fluid">
 	<div class="page-header">
-		<h2 th:text="${movie.moviename}"></h2>		
+		<a th:href="${movie.movieUrl}" target="_blank"><h2 th:text="${movie.movieName}"></h2></a>		
 	</div>
 	<p></p>
 	<div class="row">
@@ -34,10 +34,10 @@
 			<p><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>导演：</b></span><span th:text="${movie.director}"></span></p>
 			<p class="line-limit-length"><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>编剧：</b></span><span  th:text="${movie.scenario}"></span></p>
 			<p class="line-limit-length"><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>主演：</b></span><span  th:text="${movie.staring}"></span></p>
-			<p><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>类型：</b></span><span th:text="${movie.movietype}"></span></p>
-			<p><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>上映时间：</b></span><span th:text="${movie.releasedate}"></span></p>
+			<p><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>类型：</b></span><span th:text="${movie.movieType}"></span></p>
+			<p><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>上映时间：</b></span><span th:text="${movie.releaseDate}"></span></p>
 			<p><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>片长：</b></span><span th:text="${movie.runtime}"></span></p>
-			<p><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>评分人数：</b></span><span th:text="${movie.commentsamount}"></span></p>
+			<p><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>评分人数：</b></span><span th:text="${movie.commentsAmount}"></span></p>
 			<p><span style="font:15px/1.4 Arial, Helvetica, sans-serif;"><b>评分：</b></span><span th:text="${movie.score}"></span></p>
 			
 		</div>

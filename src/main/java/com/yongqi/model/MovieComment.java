@@ -6,22 +6,29 @@ package com.yongqi.model;
  * 2018年12月18日15:54:19
  */
 public class MovieComment {
-	String moviename;
+	String id;
+	String movieName;
 	String avater;
 	String comment;
 	String date;
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getMovieName() {
+		return movieName;
+	}
+	public void setMovieName(String movieName) {
+		this.movieName = movieName;
+	}
 	public String getDate() {
 		return date;
 	}
 	public void setDate(String date) {
 		this.date = date;
-	}
-	public String getMoviename() {
-		return moviename;
-	}
-	public void setMoviename(String moviename) {
-		this.moviename = moviename;
 	}
 	public String getAvater() {
 		return avater;

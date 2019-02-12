@@ -2,14 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yongqi.mapper.MovieMapper">
 	<select id="queryAllMovieTitle" resultType = "Movie">
-		select moviename from movie_info group by moviename
+		select moviename from movie_info group by movieName
 	</select>
 	
 	<select id="queryMovieInfo" resultType = "Movie">
-		select * from movie_info where moviename = #{moviename}
+		select * from movie_info where movieName = #{movieName}
 	</select>
 	
 	<select id="queryMovieComment" resultType = "MovieComment">
-		select * from movie_comment where moviename = #{moviename}
+		select * from movie_comment where movieName = #{movieName}
 	</select>
+	
+	<insert id="saveMovieInfo" parameterType="Movie">
+		insert into movie_info 
+		(id, movieName, movieUrl, image, score, commentsAmount, director, scenario, staring, movieType, releaseDate, runtime, intro)
+		values
+		(#{id},#{movieName},#{movieUrl},#{image},#{score},#{commentsAmount},#{director},#{scenario},#{staring},#{movieType},#{releaseDate},#{runtime},#{intro})
+	</insert>
+	
+	<insert id="saveMovieReviews" parameterType="MovieComment">
+		insert into movie_comment
+		(id,movieName,date,avater,comment)
+		values
+		(#{id},#{movieName},#{date},#{avater},#{comment}) 
+	</insert>
+	
+	<delete id="truncateMovieInfo">
+		truncate table movie_info
+	</delete>
+	
+	<delete id="truncateMovieIComment">
+		truncate table movie_comment
+	</delete>
 </mapper>

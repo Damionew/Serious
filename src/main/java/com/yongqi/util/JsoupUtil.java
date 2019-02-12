@@ -16,7 +16,6 @@ public class JsoupUtil {
 	
 	public static Document getDocContentByUrl(String url) throws IOException {
 		Document doc = Jsoup.connect(url).get();
-		System.out.println(doc);
 		return doc;
 	}
 }
