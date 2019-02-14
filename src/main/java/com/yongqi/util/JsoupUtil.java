@@ -11,7 +11,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
 
-@Service
 public class JsoupUtil {
 	
 	public static Document getDocContentByUrl(String url) throws IOException {
